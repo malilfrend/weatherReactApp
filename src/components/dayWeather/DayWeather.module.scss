@@ -1,0 +1,28 @@
+@import './../../styles/variables.scss';
+
+.day_weather {
+  background-color: $card-background-light;
+  box-shadow: $card-box-shadow-light;
+  border-radius: $border-radius;
+  padding: 15px 30px;
+  &__wrapper {
+    display: flex;
+  }
+}
+.main_info {
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  .date {
+    font-size: large;
+    text-align: center;
+  }
+  .temp_max {
+    font-size: 24px;
+  }
+  .temp_min {
+    font-size: 14px;
+  }
+}

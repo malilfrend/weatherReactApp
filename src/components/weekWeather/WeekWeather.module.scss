@@ -1,0 +1,53 @@
+@import './../../styles/variables.scss';
+
+// @keyframes cardUp {
+//   from {
+//     top: 0vh;
+//   }
+//   to {
+//     top: 50vh;
+//   }
+// }
+.week_weather__root {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1, 10px;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  margin-bottom: 20px;
+}
+
+.week_weather__item {
+  box-shadow: $card-box-shadow-light;
+  border-radius: $border-radius;
+  padding: 10px 10px;
+  transition: all 0.3s ease-in-out;
+  background: $card-background-light;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  .main_info {
+    .date {
+      font-size: large;
+      text-align: center;
+    }
+    .temp_max {
+      font-size: 24px;
+    }
+    .temp_min {
+      font-size: 14px;
+    }
+  }
+}
+// .week_weather__item.showMore {
+//   // transform: translateY(50vh);
+//   position: relative;
+//   animation: cardUp 1s 1;
+//   animation-fill-mode: forwards;
+//   background: $card-background-light-without-opacity;
+// }
