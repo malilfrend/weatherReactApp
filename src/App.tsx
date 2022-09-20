@@ -43,6 +43,7 @@ function App() {
     dispatch(
       setRealUserLocation({ lat: position.coords.latitude, lon: position.coords.longitude }),
     );
+    dispatch(unsetError());
     dispatch(resetFlag());
   };
   const errorsFunc = (error: ErrorType) => {
@@ -94,7 +95,7 @@ function App() {
         // Будет показываться, если не разрешить доступ к геолокации.
         <div className={'error'}>
           <p>Сlick on this button after you give the site permission to access geolocation</p>
-          <Button type="primary" onClick={() => dispatch(unsetError())}>
+          <Button type="primary" onClick={getCoords}>
             Push to retry get access
           </Button>
           <br />
