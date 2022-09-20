@@ -28,6 +28,7 @@ type InitialStateType = {
   allInfo: AllInfoType;
   isLoading: boolean;
 };
+// Структура стейта повторяет структуру ответа с сервера
 const initialState: InitialStateType = {
   allInfo: {
     fact: {

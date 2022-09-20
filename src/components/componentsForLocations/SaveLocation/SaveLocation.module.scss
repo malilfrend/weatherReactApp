@@ -1,0 +1,44 @@
+@import './../../../styles/variables.scss';
+
+.save_location {
+  display: flex;
+  position: relative;
+}
+
+.save_window {
+  opacity: 0;
+  position: absolute;
+  background-color: $primary-color;
+  border-radius: $border-radius;
+  box-shadow: $card-box-shadow-light;
+  top: 35px;
+  right: -5.5vw;
+  width: 20vw;
+  padding: 10px 10px;
+  z-index: -1;
+}
+.close_item {
+  text-align: center;
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  z-index: 2;
+  &:hover {
+    cursor: pointer;
+  }
+}
+@keyframes cardDown {
+  from {
+    top: -50vh;
+  }
+  to {
+    top: 5vh;
+  }
+}
+.save_window.show_window {
+  opacity: 1;
+  z-index: 1;
+  animation: cardDown 0.7s ease-in-out forwards;
+}

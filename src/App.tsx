@@ -30,7 +30,7 @@ type ErrorType = {
 };
 function App() {
   const dispatch = useAppDispatch();
-  const [indexOfDay, setIndexOfDay] = React.useState<number>(0);
+  const [indexOfDay, setIndexOfDay] = React.useState<number>(0); // UseState использовал, потому что информацию, которую я в нём храню в стейт записывать нет смысла
   const realUserLocation = useAppSelector((state) => state.location.realUserLocation);
   const chosenLocation = useAppSelector((state) => state.location.chosenLocation);
   const isLoading = useAppSelector((state) => state.weather.isLoading);
@@ -57,6 +57,7 @@ function App() {
   };
 
   React.useEffect(() => {
+    // Забираем данные из LocalStorage, записывал их в объекты, чтобы легче было работать.
     if (!realUserLocation.lat && !realUserLocation.lon) {
       const userData = JSON.parse(localStorage.getItem('realUserLocation') || '');
       dispatch(getRealUserLocationFromLS({ ...userData }));
@@ -69,6 +70,7 @@ function App() {
 
     if (!isNewLocation) {
       getCoords();
+      // Здесь проверка для того, чтобы не было лишнего запроса на сервер с параметрами равными null.
       if (realUserLocation.lat && realUserLocation.lon) {
         dispatch(fetchWeather({ lat: realUserLocation.lat, lon: realUserLocation.lon }));
       }
@@ -81,12 +83,13 @@ function App() {
     return function cleanUp() {
       dispatch(setInNewLocation());
     };
-  }, [isError, flag]);
+  }, [isError, flag]); // Слежу за флагом, по нему всегда даю понять, что пора делать перерисовку.
 
   return (
     <div className="wrapper">
       <Header />
       {error ? (
+        // Будет показываться, если не разрешить доступ к геолокации.
         <div className={'error'}>
           <p>Сlick on this button after you give the site permission to access geolocation</p>
           <Button type="primary" onClick={() => dispatch(unsetError())}>

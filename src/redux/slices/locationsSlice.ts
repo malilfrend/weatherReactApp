@@ -17,13 +17,13 @@ type InitialStateType = {
 };
 
 const initialState: InitialStateType = {
-  locations: [],
-  realUserLocation: { name: 'Browser geolocation', lat: null, lon: null },
-  chosenLocation: { name: 'Your location', lat: null, lon: null },
-  errorMessage: '',
+  locations: [], // Здесь хранятся все геолокации, кроме той, что определена браузером
+  realUserLocation: { name: 'Browser geolocation', lat: null, lon: null }, // Здесь хранится геолокация определённа браузером
+  chosenLocation: { name: 'Your location', lat: null, lon: null }, // Здксь хранится выбранная геолокация пользователем, по умолчанию будет равна realUserLocation
+  errorMessage: '', // сообщение об ошибке при отказе давать доступ к геолокации
   isError: false,
   isNewLocation: false,
-  flag: false,
+  flag: false, // флаг, по которому приложение понимает, что нужно делать ререндер
 };
 export const locationsSlice = createSlice({
   name: 'locationSlice',
@@ -42,10 +42,7 @@ export const locationsSlice = createSlice({
       state.isNewLocation = !state.isNewLocation;
     },
     setChosenLocation(state, action: PayloadAction<LocationsItemType>) {
-      state.chosenLocation.name = action.payload.name;
-      state.chosenLocation.lat = action.payload.lat;
-      state.chosenLocation.lon = action.payload.lon;
-      // state.isNewLocation = true;
+      state.chosenLocation = action.payload;
       state.isError = false;
       localStorage.setItem('chosenLocation', JSON.stringify(state.chosenLocation));
     },
