@@ -1,24 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { LocationType } from './currentWeatherSlice';
+import {
+  LocationType,
+  LocationsItemType,
+  UpdateLocationsItemType,
+  DeleteLocationItemType,
+} from './../../types';
 
-type LocationsItemType = {
-  name: string;
-  lat: number;
-  lon: number;
-};
 type InitialStateType = {
   locations: LocationsItemType[];
-  realUserLocation: LocationsItemType | null;
-  currentLocation: LocationType | null;
+  realUserLocation: LocationsItemType;
+  chosenLocation: LocationsItemType;
   errorMessage: string;
   isError: boolean;
+  isNewLocation: boolean;
+  flag: boolean;
 };
+
 const initialState: InitialStateType = {
   locations: [],
-  realUserLocation: null,
-  currentLocation: null,
+  realUserLocation: { name: 'Browser geolocation', lat: null, lon: null },
+  chosenLocation: { name: 'Your location', lat: null, lon: null },
   errorMessage: '',
   isError: false,
+  isNewLocation: false,
+  flag: false,
 };
 export const locationsSlice = createSlice({
   name: 'locationSlice',
@@ -30,16 +35,46 @@ export const locationsSlice = createSlice({
         lat: action.payload.lat,
         lon: action.payload.lon,
       });
+      localStorage.setItem('locations', JSON.stringify(state.locations));
+      state.isNewLocation = true;
     },
-    setCurrentLocation(state, action: PayloadAction<LocationType>) {
-      state.currentLocation = action.payload;
+    setInNewLocation(state) {
+      state.isNewLocation = !state.isNewLocation;
+    },
+    setChosenLocation(state, action: PayloadAction<LocationsItemType>) {
+      state.chosenLocation.name = action.payload.name;
+      state.chosenLocation.lat = action.payload.lat;
+      state.chosenLocation.lon = action.payload.lon;
+      // state.isNewLocation = true;
       state.isError = false;
+      localStorage.setItem('chosenLocation', JSON.stringify(state.chosenLocation));
     },
-    setRealUserLocation(state, action: PayloadAction<LocationsItemType>) {
-      state.realUserLocation = action.payload;
+    setRealUserLocation(state, action: PayloadAction<LocationType>) {
+      state.realUserLocation.lat = action.payload.lat;
+      state.realUserLocation.lon = action.payload.lon;
+      state.chosenLocation = state.realUserLocation;
+      localStorage.setItem('realUserLocation', JSON.stringify(state.realUserLocation));
     },
-    deleteLocation(state, action: PayloadAction<string>) {
-      state.locations = state.locations.filter((location) => location.name !== action.payload);
+    updateRealUserLocation(state, action: PayloadAction<string>) {
+      state.realUserLocation.name = action.payload;
+      localStorage.setItem('realUserLocation', JSON.stringify(state.realUserLocation));
+    },
+    updateLocationsItem(state, action: PayloadAction<UpdateLocationsItemType>) {
+      state.locations.forEach((location, index) => {
+        if (index === action.payload.index) {
+          location.lat = action.payload.lat;
+          location.lon = action.payload.lon;
+          location.name = action.payload.name;
+        }
+      });
+      localStorage.setItem('locations', JSON.stringify(state.locations));
+    },
+    deleteLocation(state, action: PayloadAction<DeleteLocationItemType>) {
+      state.locations = state.locations.filter(
+        (location, index) =>
+          location.name !== action.payload.name || index !== action.payload.index,
+      );
+      localStorage.setItem('locations', JSON.stringify(state.locations));
     },
     setError(state, action: PayloadAction<string>) {
       state.errorMessage = action.payload;
@@ -49,14 +84,39 @@ export const locationsSlice = createSlice({
       state.errorMessage = '';
       state.isError = false;
     },
+    resetFlag(state, action: PayloadAction) {
+      state.flag = !state.flag;
+    },
+    getRealUserLocationFromLS(state, action: PayloadAction<LocationsItemType>) {
+      if (action.payload.lat != null && action.payload.lon != null) {
+        state.realUserLocation = action.payload;
+      }
+    },
+    getChosenLocationFromLS(state, action: PayloadAction<LocationsItemType>) {
+      if (action.payload.lat != null && action.payload.lon != null) {
+        state.chosenLocation = action.payload;
+      }
+    },
+    getLocationsFromLS(state, action: PayloadAction<LocationsItemType[]>) {
+      if (action.payload.length !== 0) {
+        state.locations = action.payload;
+      }
+    },
   },
 });
 export const {
-  setCurrentLocation,
+  setChosenLocation,
   setLocationsItem,
+  setInNewLocation,
   setRealUserLocation,
+  updateLocationsItem,
+  updateRealUserLocation,
   deleteLocation,
   setError,
   unsetError,
+  resetFlag,
+  getRealUserLocationFromLS,
+  getChosenLocationFromLS,
+  getLocationsFromLS,
 } = locationsSlice.actions;
 export const locationReducer = locationsSlice.reducer;

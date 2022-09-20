@@ -21,4 +21,11 @@
 .logo {
   width: 45px;
   height: 45px;
+  transform: translateY(1px);
+}
+.location_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 35vw;
 }

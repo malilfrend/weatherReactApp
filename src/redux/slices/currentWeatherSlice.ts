@@ -1,51 +1,31 @@
 import { WeatherService } from './../../api/api';
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-
-export type LocationType = {
-  lat: number | null;
-  lon: number | null;
-};
-
-export type ForecastItemOutputType = {
-  date_ts: number;
-  parts: {
-    day: {
-      condition: string;
-      feels_like: number;
-      humidity: number;
-      pressure_mm: number;
-      temp_avg: number;
-      temp_max: number;
-      temp_min: number;
-      wind_speed: number;
+import { ForecastItemOutputType, LocationType } from '../../types';
+type AllInfoType = {
+  fact: {
+    condition: string;
+    feels_like: number | null;
+    humidity: number | null;
+    pressure_mm: number | null;
+    temp: number | null;
+    wind_speed: number | null;
+  };
+  forecasts: ForecastItemOutputType[];
+  geo_object: {
+    country: {
+      name: string | null;
+    };
+    locality: {
+      name: string | null;
+    };
+    district: {
+      name: string | null;
     };
   };
+  info: LocationType;
 };
-
 type InitialStateType = {
-  allInfo: {
-    fact: {
-      condition: string;
-      feels_like: number | null;
-      humidity: number | null;
-      pressure_mm: number | null;
-      temp: number | null;
-      wind_speed: number | null;
-    };
-    forecasts: ForecastItemOutputType[];
-    geo_object: {
-      country: {
-        name: string | null;
-      };
-      locality: {
-        name: string | null;
-      };
-      district: {
-        name: string | null;
-      };
-    };
-    info: LocationType;
-  };
+  allInfo: AllInfoType;
   isLoading: boolean;
 };
 const initialState: InitialStateType = {
@@ -77,10 +57,10 @@ const initialState: InitialStateType = {
   },
   isLoading: false,
 };
-export const fetchWeather = createAsyncThunk<typeof initialState.allInfo>(
+export const fetchWeather = createAsyncThunk(
   'weather/fetchWeather',
-  async function () {
-    const response = await WeatherService.getWeather();
+  async function (coords: LocationType) {
+    const response = await WeatherService.getWeather(coords);
     const everythingFromResponseData = response.data;
     return everythingFromResponseData;
   },
@@ -94,7 +74,7 @@ export const currentWeatherSlice = createSlice({
       .addCase(fetchWeather.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchWeather.fulfilled, (state, action) => {
+      .addCase(fetchWeather.fulfilled, (state, action: PayloadAction<AllInfoType>) => {
         state.allInfo = action.payload;
         state.isLoading = false;
       });

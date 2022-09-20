@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import s from './WeekWeather.module.scss';
-import { ForecastItemOutputType } from './../../redux/slices/currentWeatherSlice';
+import { ForecastItemOutputType } from './../../types';
 type TProps = {
   obj: ForecastItemOutputType;
   index: number;
@@ -26,24 +26,7 @@ export const WeekWeatherItem: React.FC<TProps> = ({ obj, index, setIndexOfDay })
             <p>{aboutWeather.condition}</p>
           </section>
         </div>
-        {/* <div>
-        <p>Average: {aboutWeather.temp_avg}°</p>
-        <p>Feels like: {aboutWeather.feels_like}°</p>
-        <p>{aboutWeather.condition}</p>
-        <p>{aboutWeather.wind_speed}</p>
-        <p>{aboutWeather.pressure_mm}</p>
-        <p>{aboutWeather.humidity}</p>
-      </div> */}
       </div>
     </Link>
   );
 };
-// temp_min=
-//             temp_max=
-//             temp_avg=
-//             feels_like=
-//             date=
-//             condition=
-//             wind_speed=
-//             pressure=
-//             humidity=
