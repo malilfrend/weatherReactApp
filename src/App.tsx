@@ -58,14 +58,16 @@ function App() {
 
   React.useEffect(() => {
     // Забираем данные из LocalStorage, записывал их в объекты, чтобы легче было работать.
-    if (!realUserLocation.lat && !realUserLocation.lon) {
-      const userData = JSON.parse(localStorage.getItem('realUserLocation') || '');
-      dispatch(getRealUserLocationFromLS({ ...userData }));
-      const chosenPositionFromLS = JSON.parse(localStorage.getItem('chosenLocation') || '');
-      dispatch(getChosenLocationFromLS({ ...chosenPositionFromLS }));
-      const locationsFromLS = JSON.parse(localStorage.getItem('locations') || '');
-      dispatch(getLocationsFromLS(locationsFromLS));
-      dispatch(resetFlag());
+    if (localStorage.length === 0 && !realUserLocation.lat && !realUserLocation.lon) {
+      try {
+        const userData = JSON.parse(localStorage.getItem('realUserLocation') || '');
+        dispatch(getRealUserLocationFromLS({ ...userData }));
+        const chosenPositionFromLS = JSON.parse(localStorage.getItem('chosenLocation') || '');
+        dispatch(getChosenLocationFromLS({ ...chosenPositionFromLS }));
+        const locationsFromLS = JSON.parse(localStorage.getItem('locations') || '');
+        dispatch(getLocationsFromLS(locationsFromLS));
+        dispatch(resetFlag());
+      } catch (error) {}
     }
 
     if (!isNewLocation) {
