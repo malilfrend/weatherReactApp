@@ -58,7 +58,7 @@ function App() {
 
   React.useEffect(() => {
     // Забираем данные из LocalStorage, записывал их в объекты, чтобы легче было работать.
-    if (localStorage.length === 0 && !realUserLocation.lat && !realUserLocation.lon) {
+    if (localStorage.length !== 0 && !realUserLocation.lat && !realUserLocation.lon) {
       try {
         const userData = JSON.parse(localStorage.getItem('realUserLocation') || '');
         dispatch(getRealUserLocationFromLS({ ...userData }));
