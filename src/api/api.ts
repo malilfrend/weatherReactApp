@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { LocationType } from './../types';
 const instance = axios.create({
-  withCredentials: false,
+  withCredentials: false, // http://localhost:8010/proxy/v2/forecast
   baseURL: 'http://localhost:8010/proxy/v2/forecast', // 'https://api.weather.yandex.ru/v2/forecast'
   headers: {
     'X-Yandex-API-Key': `${process.env.REACT_APP_X_YANDEX_API_KEY}`,
