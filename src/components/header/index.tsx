@@ -4,6 +4,7 @@ import LogoComponent from './../common/LogoComponent';
 import s from './Header.module.scss';
 const SaveLocation = lazy(() => import('./../componentsForLocations/SaveLocation'));
 const ListOfLocations = lazy(() => import('./../componentsForLocations/ListOfLocations'));
+
 export default function Header() {
   return (
     <header className={s.header}>
