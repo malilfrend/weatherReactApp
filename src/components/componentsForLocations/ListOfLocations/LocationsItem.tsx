@@ -11,7 +11,7 @@ import {
   setChosenLocation,
 } from './../../../redux/slices/locationsSlice';
 import { DeleteOutlined, EnvironmentOutlined, EditOutlined } from '@ant-design/icons';
-import EditLocation from './../editlocation';
+import EditLocation from './../EditLocation';
 
 export default function LocationsItem({ name, lat, lon, index }: UpdateLocationsItemType) {
   const dispatch = useAppDispatch();
