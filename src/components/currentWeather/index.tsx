@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './CurrentWeather.module.scss';
-import ThisDay from './ThisDay';
-import ThisDayInfo from './ThisDayInfo';
+import ThisDay from './thisDay';
+import ThisDayInfo from './thisDayInfo';
 
 export default function CurrentWeather() {
   return (

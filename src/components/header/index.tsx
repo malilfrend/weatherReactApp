@@ -1,9 +1,9 @@
 import React, { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import LogoComponent from './../Common/LogoComponent';
+import LogoComponent from './../common/LogoComponent';
 import s from './Header.module.scss';
-const SaveLocation = lazy(() => import('./../ComponentsForLocations/SaveLocation'));
-const ListOfLocations = lazy(() => import('./../ComponentsForLocations/ListOfLocations'));
+const SaveLocation = lazy(() => import('./../componentsForLocations/saveLocation'));
+const ListOfLocations = lazy(() => import('./../componentsForLocations/listOfLocations'));
 
 export default function Header() {
   return (

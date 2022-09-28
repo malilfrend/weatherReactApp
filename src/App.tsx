@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import CurrentWeather from './Components/CurrentWeather';
-import Header from './Components/Header';
-import { WeekWeather } from './Components/WeekWeather';
-import { DayWeather } from './Components/DayWeather';
+import CurrentWeather from './components/currentWeather';
+import Header from './components/header';
+import { WeekWeather } from './components/weekWeather';
+import { DayWeather } from './components/dayWeather';
 import { fetchWeather } from './redux/slices/currentWeatherSlice';
 import {
   setError,
