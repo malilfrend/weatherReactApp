@@ -10,7 +10,7 @@ const instance = axios.create({
 
 export const WeatherService = {
   getWeather(coords: LocationType): Promise<AxiosResponse> {
-    // return instance.get(`?lat=${coords.lat}&lon=${coords.lon}&lang=en_US&hours=false&extra=false`);
-    return axios.get(`/api/weather?lat=${coords.lat}&lon=${coords.lon}`);
+    return instance.get(`?lat=${coords.lat}&lon=${coords.lon}&lang=en_US&hours=false&extra=false`);
+    // return axios.get(`/api/weather?lat=${coords.lat}&lon=${coords.lon}`);
   },
 };
