@@ -4,7 +4,7 @@ import { useAppSelector } from '../../../hooks';
 import s from './ThisDay.module.scss';
 
 export default function ThisDay() {
-  const temp = useAppSelector((state) => state.weather.allInfo.fact.temp);
+  const temp = useAppSelector((state) => state?.weather?.allInfo?.fact?.temp);
   let hours = new Date().getHours();
   let minutes = new Date().getMinutes();
   let time = `${hours}:${(minutes + '').length === 1 ? `0${minutes}` : minutes}`;
