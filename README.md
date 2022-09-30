@@ -4,7 +4,7 @@
 
 ## Development
 
-yarn proxy  
+yarn start-proxy  
 yarn start
 
 ## Start
