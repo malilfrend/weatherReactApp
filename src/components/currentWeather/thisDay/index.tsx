@@ -9,7 +9,7 @@ export default function ThisDay() {
   let minutes = new Date().getMinutes();
   let time = `${hours}:${(minutes + '').length === 1 ? `0${minutes}` : minutes}`;
 
-  const location = useAppSelector((state) => state.weather.allInfo.geo_object);
+  const location = useAppSelector((state) => state?.weather?.allInfo?.geo_object);
   return (
     <div className={s.this__day}>
       <div className={s.top__block}>
@@ -23,7 +23,7 @@ export default function ThisDay() {
           Local time: <time>{time}</time>
         </div>
         <div className={s.this__location}>
-          {location.country === null ? 'Unknown location' : null}
+          {location?.country === null ? 'Unknown location' : null}
           <p>{location?.country?.name}</p>
           <p>{location?.locality?.name}</p>
           <p>{location?.district?.name}</p>
