@@ -42,8 +42,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start-proxy": "cross-env NODE_ENV=development node server/app.js",
-    "serve-build": "cross-env NODE_ENV=production node server/app.js",
-    "heroku-postbuild": "cd client && yarn && yarn run build"
+    "serve-build": "cross-env NODE_ENV=production node server/app.js"
   },
   "eslintConfig": {
     "extends": [
